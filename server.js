@@ -211,12 +211,12 @@ const updateEmployeeRole = () => {
             employeeArray.push(`${employee.first_name} ${employee.last_name}`);
         });
 
-        let sql = `SELECT roles.id, roles.title FROM roles`;
-        db.query(sql, (error, response) => {
-            if (error) throw error;
-            let roleArray = [];
-            response.forEach((roles) => {roleArray.push(roles.title);
-            });
+    let sql = `SELECT roles.id, roles.title FROM roles`;
+    db.query(sql, (error, response) => {
+          if (error) throw error;
+          let roleArray = [];
+          response.forEach((roles) => {roleArray.push(roles.title);
+        });
         
 
         inquirer.prompt([
@@ -234,8 +234,7 @@ const updateEmployeeRole = () => {
             },
         ])
         .then((answer) => {
-            let newTitle
-            let employeeId
+            let newTitle, employeeId;
 
             response.forEach((roles) => {
                 if (answer.selectedRole === roles.title) {
@@ -254,6 +253,7 @@ const updateEmployeeRole = () => {
                 (error) => {
                     if (error) throw error;
                     console.log('Employee Role Updated');
+                    console.log(newTitle);
                     promptUser();
                 });
             });
@@ -262,7 +262,7 @@ const updateEmployeeRole = () => {
 };
 
 const updateEmployeeManager = () => {
-    let sql = `SELECT employee.id, employee.        first_name, employee.last_name, employee.manager_id FROM employee`;
+    let sql = `SELECT employee.id, employee.first_name, employee.last_name, employee.manager_id FROM employee`;
     db.query(sql, (error, response) => {
         let employeeArray = [];
         response.forEach((employee) => {
